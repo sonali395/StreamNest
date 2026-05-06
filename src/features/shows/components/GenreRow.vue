@@ -198,7 +198,7 @@ function scrollLabel(which: 'prev' | 'next'): string {
   align-items: center;
   text-align: center;
   gap: 0.35rem;
-  width: clamp(9.75rem, 30vw, 10.5rem);
+  width: clamp(10.25rem, 32vw, 11rem);
   min-height: 100%;
   aspect-ratio: 2 / 3;
   border-radius: var(--sn-radius);

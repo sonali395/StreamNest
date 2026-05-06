@@ -2,6 +2,7 @@
 import SearchBar from '@/features/shows/components/SearchBar.vue'
 import { useShowsStore } from '@/store/showsStore'
 import { storeToRefs } from 'pinia'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import {
   isNavigationFailure,
   NavigationFailureType,
@@ -16,6 +17,7 @@ const { searchQuery } = storeToRefs(store)
 
 const route = useRoute()
 const router = useRouter()
+const showBackToTop = ref(false)
 
 function onSearch(q: string): void {
   const trimmed = q.trim()
@@ -38,6 +40,27 @@ function onSearch(q: string): void {
 function setQuery(v: string): void {
   searchQuery.value = v
 }
+
+function onHomeClick(): void {
+  store.clearSearch()
+}
+
+function updateBackToTopVisibility(): void {
+  showBackToTop.value = window.scrollY > 360
+}
+
+function scrollToTop(): void {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+onMounted(() => {
+  updateBackToTopVisibility()
+  window.addEventListener('scroll', updateBackToTopVisibility, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateBackToTopVisibility)
+})
 </script>
 
 <template>
@@ -52,6 +75,7 @@ function setQuery(v: string): void {
           to="/"
           class="app__brand"
           aria-label="StreamNest home"
+          @click="onHomeClick"
         >
           <span class="app__logo" aria-hidden="true">▶</span>
           <span class="app__name">StreamNest</span>
@@ -71,6 +95,14 @@ function setQuery(v: string): void {
     >
       <RouterView />
     </main>
+    <button
+      v-if="showBackToTop"
+      type="button"
+      class="app__back-to-top"
+      @click="scrollToTop"
+    >
+      Back to top
+    </button>
   </div>
 </template>
 
@@ -105,7 +137,7 @@ function setQuery(v: string): void {
 }
 
 .app__bar {
-  max-width: 1200px;
+  max-width: clamp(70rem, 94vw, 96rem);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -158,9 +190,38 @@ function setQuery(v: string): void {
 }
 
 .app__main {
-  max-width: 1200px;
+  max-width: clamp(70rem, 94vw, 96rem);
   margin: 0 auto;
   padding: 1.5rem var(--sn-page-pad) 2.5rem;
+}
+
+.app__back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 25;
+  border: 1px solid var(--sn-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sn-surface) 86%, transparent);
+  color: var(--sn-text);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.82rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--sn-accent-dim);
+    color: var(--sn-accent);
+    transform: translateY(-1px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

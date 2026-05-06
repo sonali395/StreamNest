@@ -68,7 +68,7 @@ const poster = computed(
 <style scoped lang="scss">
 .card {
   display: block;
-  width: clamp(9.75rem, 30vw, 10.5rem);
+  width: clamp(10.25rem, 32vw, 11rem);
   flex: 0 0 auto;
   text-decoration: none;
   color: inherit;
@@ -77,6 +77,7 @@ const poster = computed(
   background: var(--sn-surface);
   border: 1px solid var(--sn-border);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  will-change: transform;
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -84,7 +85,7 @@ const poster = computed(
 
   &:hover,
   &:focus-visible {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: var(--sn-accent-dim);
     box-shadow:
       0 20px 40px rgba(0, 0, 0, 0.45),
@@ -116,11 +117,12 @@ const poster = computed(
   height: 100%;
   object-fit: cover;
   display: block;
+  transform-origin: center top;
   transition: transform 0.35s ease;
 
   .card:hover &,
   .card:focus-visible & {
-    transform: scale(1.04);
+    transform: scale(1.02);
   }
 }
 
@@ -152,7 +154,9 @@ const poster = computed(
 
 .card__body {
   padding: 0.65rem 0.75rem 0.85rem;
-  min-height: 4.7rem;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 0.35rem;
 }
 
 .card__title {
@@ -160,6 +164,7 @@ const poster = computed(
   font-size: 0.9rem;
   font-weight: 600;
   line-height: 1.25;
+  min-height: calc(1.25em * 2);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -167,9 +172,10 @@ const poster = computed(
 }
 
 .card__preview {
-  margin: 0.35rem 0 0;
+  margin: 0;
   font-size: 0.72rem;
   line-height: 1.35;
+  min-height: calc(1.35em * 2);
   color: var(--sn-text-muted);
   display: -webkit-box;
   -webkit-line-clamp: 2;

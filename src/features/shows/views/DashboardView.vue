@@ -25,6 +25,15 @@ function toggleGenreMenu(): void {
   isGenreMenuOpen.value = !isGenreMenuOpen.value
 }
 
+function onFilterTriggerClick(e: MouseEvent): void {
+  const target = e.target
+  if (target instanceof HTMLElement && target.closest('.dash__filter-select-clear')) {
+    clearGenre()
+    return
+  }
+  toggleGenreMenu()
+}
+
 function selectGenre(genre: string): void {
   store.setSelectedGenre(genre)
   isGenreMenuOpen.value = false
@@ -94,9 +103,14 @@ onBeforeUnmount(() => {
             class="dash__filter-select"
             :aria-expanded="isGenreMenuOpen"
             aria-haspopup="true"
-            @click="toggleGenreMenu"
+            @click="onFilterTriggerClick"
           >
-            {{ genreLabel }}
+            <span>{{ genreLabel }}</span>
+            <span
+              v-if="selectedGenre"
+              class="dash__filter-select-clear"
+              aria-hidden="true"
+            >×</span>
           </button>
           <div
             v-if="isGenreMenuOpen"
@@ -124,7 +138,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <p class="dash__lede">
-        Picked from the TVMaze catalog: grouped by genre, ranked by rating.
+        Discover top-rated shows across every genre.
       </p>
     </header>
 
@@ -214,6 +228,9 @@ onBeforeUnmount(() => {
 }
 
 .dash__filter-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
   border: 1px solid var(--sn-border);
   border-radius: 999px;
   background-color: var(--sn-surface);
@@ -237,6 +254,13 @@ onBeforeUnmount(() => {
     color: var(--sn-accent);
     box-shadow: 0 0 0 3px var(--sn-accent-glow);
   }
+}
+
+.dash__filter-select-clear {
+  margin-left: 0.55rem;
+  color: var(--sn-text-muted);
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .dash__filter-menu {
