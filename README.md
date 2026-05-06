@@ -74,6 +74,14 @@ npm run e2e
 
 ---
 
+## Architectural Decisions
+
+Vue 3 was chosen to support a component-driven architecture with clear separation of concerns. The Composition API allows logic to be organized by feature rather than by lifecycle, making components easier to scale and maintain. This aligns well with the app's structure, where data fetching, state management, and UI rendering are cleanly separated across services, store, and components.
+
+Combined with Pinia and Vue Router, Vue enables a modular and predictable architecture with minimal boilerplate, allowing the application to remain lightweight while still being structured for scalability.
+
+---
+
 ## Tech Stack
 
 * **Vue 3**
@@ -82,7 +90,9 @@ npm run e2e
 * **Vue Router**
 * **Vitest + Vue Test Utils** 
 * **SCSS + CSS variables** 
+
 ---
+
 
 ## Dashboard Snapshot
 
