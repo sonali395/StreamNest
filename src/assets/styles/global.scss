@@ -1,0 +1,92 @@
+:root {
+  /* Midnight tide — deep blue base + coral/aqua accents */
+  --sn-bg: #0f1726;
+  --sn-bg-rgb: 15 23 38;
+  --sn-bg-elevated: #142036;
+  --sn-surface: #1a2a42;
+  --sn-surface-2: #223654;
+  --sn-border: #345074;
+  --sn-border-strong: #44638c;
+  --sn-text: #f2f7ff;
+  --sn-text-muted: #a3b6d3;
+  --sn-accent: #ff9f7f;
+  --sn-accent-deep: #6fd6cf;
+  --sn-accent-dim: rgba(255, 159, 127, 0.44);
+  --sn-accent-glow: rgba(111, 214, 207, 0.24);
+  --sn-pop: #9ed0ff;
+  --sn-page-pad: clamp(0.85rem, 3vw, 1.35rem);
+  --sn-font: 'Figtree', system-ui, -apple-system, sans-serif;
+  --sn-radius: 12px;
+  --sn-radius-sm: 8px;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--sn-font);
+  color: var(--sn-text);
+  line-height: 1.5;
+  background-color: var(--sn-bg);
+  background-image:
+    radial-gradient(
+      ellipse 120% 74% at 86% -16%,
+      rgba(255, 159, 127, 0.16),
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse 78% 54% at 6% 46%,
+      rgba(111, 214, 207, 0.11),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse 100% 62% at 50% 110%,
+      rgba(158, 208, 255, 0.1),
+      transparent 58%
+    );
+  background-attachment: fixed;
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.sn-eyebrow {
+  margin: 0 0 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sn-accent-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
